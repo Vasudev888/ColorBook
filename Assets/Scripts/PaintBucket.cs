@@ -8,7 +8,8 @@ public class PaintBucket : MonoBehaviour
 
     public Color[] colorList;
     public Color curColor;
-    public int colorCount;
+    [SerializeField]
+    int colorCount;
 
     void Start()
     {
@@ -19,10 +20,10 @@ public class PaintBucket : MonoBehaviour
     void Update()
     {
         curColor = colorList[colorCount];
-        var ray = Camera.main.ScreenToViewportPoint(Input.mousePosition);
+        var ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray, -Vector2.up);
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButton(0))
         {
             if(hit.collider != null)
             {
@@ -30,12 +31,15 @@ public class PaintBucket : MonoBehaviour
                 Debug.Log(hit.collider.name);
 
                 sp.color = curColor;
+
             }
 
-            if (hit.collider == null)
+
+      /*      if (hit.collider == null)
             {
                 Camera.main.backgroundColor = curColor;
             }
+*/
         }
 
 
